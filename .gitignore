@@ -1,0 +1,41 @@
+### Maven ###
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Environment variables ###
+.env
+.env.*
+!.env.example
+
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse / STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+### Logs ###
+*.log
+logs/
+
+### macOS ###
+.DS_Store
+
+
+### Temporary files ###
+*.tmp
+*.temp
+*.swp
+*~

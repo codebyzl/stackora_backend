@@ -1,0 +1,7 @@
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+logging:
+  level:
+    org.victor.stackora.mapper: DEBUG
