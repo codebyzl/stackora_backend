@@ -2,6 +2,8 @@ package org.victor.stackora.exception;
 
 import org.victor.stackora.common.ErrorCode;
 
+import java.util.Objects;
+
 /**
  * @author: Victor_zl
  * @version: 1.0
@@ -15,18 +17,25 @@ public class BusinessException extends RuntimeException {
 
 
     public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+        this(errorCode, null);
     }
 
     public BusinessException(ErrorCode errorCode, String message) {
-        super(message == null || message.isBlank()
-                ? errorCode.getMessage()
-                : message);
+        super(resolveMessage(errorCode, message));
         this.errorCode = errorCode;
     }
 
+    private static String resolveMessage(ErrorCode errorCode, String message) {
+        Objects.requireNonNull(errorCode, "errorCode must not be null");
+
+        return message == null || message.isBlank()
+                ? errorCode.getMessage()
+                : message;
+    }
     public ErrorCode getErrorCode() {
         return errorCode;
     }
 }
+
+
+
