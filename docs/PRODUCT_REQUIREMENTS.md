@@ -203,7 +203,7 @@ Elasticsearch 属于搜索能力扩展阶段。
 推荐包结构：
 
 ```text
-src/main/java/com/victorzl/stackora/
+src/main/java/org/victor/stackora/
 ├── common/
 ├── config/
 ├── controller/
