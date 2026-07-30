@@ -6,5 +6,3 @@ mybatis-plus:
 logging:
   level:
     org.victor.stackora.mapper: DEBUG
-
-

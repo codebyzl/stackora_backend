@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
 
+
+    /**
+     * 通用错误码
+     */
     ERROR(
             -1,
             "请求失败",
@@ -34,6 +38,44 @@ public enum ErrorCode {
             "用户无权限",
             HttpStatus.FORBIDDEN
     ),
+
+    /**
+     * 用户账号错误码
+     */
+    ACCOUNT_ALREADY_EXISTS(
+            20000,
+            "账号已存在",
+            HttpStatus.CONFLICT
+    ),
+
+    ACCOUNT_OR_PASSWORD_ERROR(
+            20001,
+            "账号或密码错误",
+            HttpStatus.UNAUTHORIZED
+    ),
+
+    ACCOUNT_DISABLED(
+            20002,
+            "账号已被禁用",
+            HttpStatus.FORBIDDEN
+    ),
+
+    ACCOUNT_CANCELLED(
+            20003,
+            "账号已注销",
+            HttpStatus.FORBIDDEN
+    ),
+
+    ACCOUNT_NOT_FOUND(
+            20004,
+            "账号不存在",
+            HttpStatus.NOT_FOUND
+    ),
+
+
+    /**
+     * 系统错误码
+     */
 
     SYSTEM_ERROR(
             99999,

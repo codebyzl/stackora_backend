@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.victor.stackora.mapper.UserAccountMapper">
+
+    <resultMap id="BaseResultMap" type="org.victor.stackora.model.entity.UserAccount">
+        <id property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="passwordHash" column="password_hash"/>
+        <result property="nickname" column="nickname"/>
+        <result property="role" column="role"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="cancelledAt" column="cancelled_at"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account,password_hash,nickname,role,status,
+        created_at,updated_at,cancelled_at
+    </sql>
+</mapper>

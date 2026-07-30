@@ -55,6 +55,24 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Spring Boot 对 Flyway 的自动配置 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
+        </dependency>
+
+        <!-- Flyway 对 MySQL 的支持 -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
+
+        <!-- 请求参数校验：支持 @Valid、@NotBlank、@Pattern、@Size 等注解 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
         <!--lombok注解-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -76,6 +94,12 @@
             <version>3.5.17</version>
         </dependency>
 
+        <!-- 提供密码安全哈希组件，如 BCrypt -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
         <!--测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,7 +112,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
 
 
     </dependencies>
