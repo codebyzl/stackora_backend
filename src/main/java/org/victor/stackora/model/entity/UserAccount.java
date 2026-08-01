@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.victor.stackora.model.enums.UserRole;
 import org.victor.stackora.model.enums.UserStatus;
-import tools.jackson.databind.annotation.JsonSerialize;
-import tools.jackson.databind.ser.std.ToStringSerializer;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -29,7 +27,6 @@ public class UserAccount implements Serializable {
      * 用户主键
      */
     @TableId(value = "id", type = IdType.AUTO)
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /**
@@ -81,4 +78,5 @@ public class UserAccount implements Serializable {
     private LocalDateTime cancelledAt;
 
     private static final long serialVersionUID = 8750236807859121573L;
+    
 }

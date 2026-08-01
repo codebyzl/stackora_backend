@@ -2,6 +2,7 @@ package org.victor.stackora.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.victor.stackora.common.ApiResponse;
@@ -17,6 +18,36 @@ import org.victor.stackora.common.ErrorCode;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /**
+     * 处理 @Valid 请求体字段校验失败。
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Void>>
+    handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        String message = exception
+                .getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .findFirst()
+                .map(fieldError ->
+                        fieldError.getDefaultMessage()
+                )
+                .orElse(ErrorCode.PARAMS_ERROR.getMessage());
+
+        return ResponseEntity
+                .status(ErrorCode.PARAMS_ERROR.getHttpStatus())
+                .body(
+                        ApiResponseFactory.error(
+                                ErrorCode.PARAMS_ERROR,
+                                message
+                        )
+                );
+    }
+
+
+    /**
+     * 处理业务异常。
+     */
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<Void>> handleBusinessException(
             BusinessException e) {
