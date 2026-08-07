@@ -7,12 +7,11 @@ import jakarta.validation.constraints.Size;
 /**
  * @author: Victor_zl
  * @version: 1.0
- * @Description:用户注册请求类
+ * @Description:
  */
-
-public record RegisterRequest(
+public record LoginRequest(
         /**
-         * 用户名
+         * 登录账号
          */
         @NotBlank
         @Pattern(
@@ -22,7 +21,7 @@ public record RegisterRequest(
         String account,
 
         /**
-         * 原始密码
+         * 登录密码
          */
         @NotBlank(message = "密码不能为空")
         @Size(
@@ -32,10 +31,9 @@ public record RegisterRequest(
         )
         String rawPassword
 ) {
-
     @Override
     public String toString() {
-        return "RegisterRequest[account=%s, password=***]"
+        return "LoginRequest[account=%s, password=***]"
                 .formatted(account);
     }
 }

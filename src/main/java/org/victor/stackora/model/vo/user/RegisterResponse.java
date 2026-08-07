@@ -1,4 +1,4 @@
-package org.victor.stackora.model.vo;
+package org.victor.stackora.model.vo.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import tools.jackson.databind.annotation.JsonSerialize;

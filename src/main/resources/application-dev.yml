@@ -7,6 +7,17 @@ logging:
   level:
     org.victor.stackora.mapper: DEBUG
 
+server:
+  servlet:
+    context-path: /api
+    session:
+      timeout: 5m
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: false
+  port: 8080
+
 springdoc:
   api-docs:
     enabled: true

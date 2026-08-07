@@ -17,6 +17,7 @@ import org.victor.stackora.model.entity.UserAccount;
 import org.victor.stackora.model.enums.UserRole;
 import org.victor.stackora.model.enums.UserStatus;
 import org.victor.stackora.service.UserAccountService;
+import org.victor.stackora.service.result.UserInfoResult;
 
 import java.util.Locale;
 
@@ -90,6 +91,81 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
 
         // 5. 获取数据库回填的自增ID
         return userAccount.getId();
+    }
+
+    @Override
+    public UserInfoResult userLogin(String account, String rawPassword) {
+
+        // 1.校验非空
+        if (!StringUtils.hasText(account) || !StringUtils.hasText(rawPassword)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        String normalizedAccount = account.toLowerCase(Locale.ROOT);
+
+        // 2.数据库验证账号密码是否正确
+        UserAccount userAccount = lambdaQuery().eq(UserAccount::getAccount, normalizedAccount).one();
+
+        // 账号不存在或者密码不正确
+        if (userAccount == null || !passwordEncoder.matches(
+                rawPassword,
+                userAccount.getPasswordHash()
+        )) {
+            throw new BusinessException(
+                    ErrorCode.ACCOUNT_OR_PASSWORD_ERROR
+            );
+        }
+
+        // 3.判断用户状态
+        ensureAccountActive(userAccount.getStatus());
+
+        return new UserInfoResult(
+                userAccount.getId(),
+                userAccount.getAccount(),
+                userAccount.getNickname(),
+                userAccount.getRole());
+    }
+
+    @Override
+    public UserInfoResult getCurrentUserInfoById(Long userId) {
+
+        // 1.校验非空
+        if (userId == null || userId <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+
+        // 2.数据库查询用户信息
+        UserAccount userAccount = lambdaQuery().eq(UserAccount::getId, userId).one();
+
+        // 用户不存在
+        if (userAccount == null) {
+            throw new BusinessException(
+                    ErrorCode.ACCOUNT_NOT_FOUND
+            );
+        }
+
+        // 3.判断用户状态
+        ensureAccountActive(userAccount.getStatus());
+
+        return new UserInfoResult(
+                userAccount.getId(),
+                userAccount.getAccount(),
+                userAccount.getNickname(),
+                userAccount.getRole());
+    }
+
+
+    private static void ensureAccountActive(UserStatus status) {
+        if (status == null) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR);
+        }
+
+        switch (status) {
+            case ACTIVE -> {
+                // 允许继续执行业务
+            }
+            case DISABLED -> throw new BusinessException(ErrorCode.ACCOUNT_DISABLED);
+            case CANCELLED -> throw new BusinessException(ErrorCode.ACCOUNT_CANCELLED);
+        }
     }
 
 }
